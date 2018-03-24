@@ -27,7 +27,7 @@ type configuration struct {
 type FileWriter struct {
 	writer *bufio.Writer
 	config *configuration
-	queue  *gomanager.Queue
+	queue  gomanager.IList
 	mux    *sync.Mutex
 	quit   chan bool
 }
