@@ -1,5 +1,5 @@
 # go-writer
-[![Build Status](https://travis-ci.org/joaosoft/go-writer.svg?branch=master)](https://travis-ci.org/joaosoft/go-writer) | [![Code Climate](https://codeclimate.com/github/joaosoft/go-writer/badges/coverage.svg)](https://codeclimate.com/github/joaosoft/go-writer)
+[![Build Status](https://travis-ci.org/joaosoft/go-writer.svg?branch=master)](https://travis-ci.org/joaosoft/go-writer) | [![codecov](https://codecov.io/gh/joaosoft/go-writer/branch/master/graph/badge.svg)](https://codecov.io/gh/joaosoft/go-writer)
 
 A starting project with writer interface implementations.
 
