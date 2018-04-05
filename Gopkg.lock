@@ -23,13 +23,13 @@
   branch = "master"
   name = "github.com/joaosoft/go-log"
   packages = ["service"]
-  revision = "5ccff6cc52e6b2054d39309075958b54f4755249"
+  revision = "4068ced811b9c02b08ebd479d4f072f926346e8b"
 
 [[projects]]
   branch = "master"
   name = "github.com/joaosoft/go-manager"
   packages = ["service"]
-  revision = "17a5a58b3f19c6a40547f75872d3ef8f3dffe9a2"
+  revision = "523d5c020d6b9ec5408d20a47d5063dca0a687b9"
 
 [[projects]]
   name = "github.com/labstack/echo"
@@ -47,7 +47,7 @@
   branch = "master"
   name = "github.com/lib/pq"
   packages = [".","oid"]
-  revision = "b2004221932bd6b13167ef654c81cffac36f7537"
+  revision = "d34b9ff171c21ad295489235aec8b6626023cd04"
 
 [[projects]]
   name = "github.com/mattn/go-colorable"
@@ -89,13 +89,13 @@
   branch = "master"
   name = "golang.org/x/crypto"
   packages = ["acme","acme/autocert"]
-  revision = "88942b9c40a4c9d203b82b3731787b672d6e809b"
+  revision = "b2aa35443fbc700ab74c586ae79b81c171851023"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
-  revision = "91ee8cde435411ca3f1cd365e8f20131aed4d0a1"
+  revision = "1d206c9fa8975fb4cf00df1dc8bf3283dc24ba0e"
 
 [solve-meta]
   analyzer-name = "dep"

@@ -20,9 +20,9 @@ type StdoutWriter struct {
 	writer        io.Writer
 	config        *stdoutConfig
 	queue         gomanager.IList
+	formatHandler FormatHandler
 	mux           *sync.Mutex
 	outOnEmpty    bool
-	formatHandler FormatHandler
 	quit          chan bool
 }
 
@@ -76,13 +76,13 @@ func (stdoutWriter *StdoutWriter) process() error {
 }
 
 // Write ...
-func (stdoutWriter StdoutWriter) Write(message []byte) (n int, err error) {
+func (stdoutWriter *StdoutWriter) Write(message []byte) (n int, err error) {
 	stdoutWriter.queue.Add(uuid.NewV4().String(), message)
 	return 0, nil
 }
 
 // SWrite ...
-func (stdoutWriter StdoutWriter) SWrite(message Message) (n int, err error) {
+func (stdoutWriter *StdoutWriter) SWrite(message Message) (n int, err error) {
 	stdoutWriter.queue.Add(uuid.NewV4().String(), message)
 	return 0, nil
 }

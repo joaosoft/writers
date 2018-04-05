@@ -46,3 +46,10 @@ func WithFileQuitChannel(quit chan bool) FileWriterOption {
 		fileWriter.quit = quit
 	}
 }
+
+// WithFileSpecialFormatHandler ...
+func WithFileSpecialFormatHandler(formatHandler FormatHandler) FileWriterOption {
+	return func(fileWriter *FileWriter) {
+		fileWriter.formatHandler = formatHandler
+	}
+}

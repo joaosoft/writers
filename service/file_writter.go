@@ -25,12 +25,13 @@ type fileConfig struct {
 
 // StdoutWriter ...
 type FileWriter struct {
-	writer     *bufio.Writer
-	config     *fileConfig
-	queue      gomanager.IList
-	mux        *sync.Mutex
-	outOnEmpty bool
-	quit       chan bool
+	writer        *bufio.Writer
+	config        *fileConfig
+	queue         gomanager.IList
+	formatHandler FormatHandler
+	mux           *sync.Mutex
+	outOnEmpty    bool
+	quit          chan bool
 }
 
 // NewStdoutWriter ...
@@ -80,7 +81,17 @@ func (fileWriter *FileWriter) process() error {
 				buffer := bytes.NewBuffer(make([]byte, 0))
 
 				for fileWriter.queue.Size() > 0 {
-					logMessage = fileWriter.queue.Remove().([]byte)
+					value := fileWriter.queue.Remove()
+					switch value.(type) {
+					case []byte:
+						logMessage = value.([]byte)
+					case Message:
+						if bytes, err := fileWriter.formatHandler(value.(Message)); err != nil {
+							continue
+						} else {
+							logMessage = bytes
+						}
+					}
 
 					if int64(binary.Size(buffer.Bytes())+binary.Size(logMessage)) <= maxSize {
 						buffer.Write(logMessage)
@@ -108,7 +119,13 @@ func (fileWriter *FileWriter) process() error {
 }
 
 // Write ...
-func (fileWriter FileWriter) Write(message []byte) (n int, err error) {
+func (fileWriter *FileWriter) Write(message []byte) (n int, err error) {
+	fileWriter.queue.Add(uuid.NewV4().String(), message)
+	return 0, nil
+}
+
+// SWrite ...
+func (fileWriter *FileWriter) SWrite(message Message) (n int, err error) {
 	fileWriter.queue.Add(uuid.NewV4().String(), message)
 	return 0, nil
 }

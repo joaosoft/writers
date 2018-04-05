@@ -55,7 +55,6 @@ func main() {
 	// logger
 	log = logger.NewLog(
 		logger.WithLevel(logger.InfoLevel),
-		logger.WithFormatHandler(gowriter.JsonFormatHandler),
 		logger.WithWriter(stdoutWriter)).WithPrefixes(map[string]interface{}{
 		"level":   logger.LEVEL,
 		"time":    logger.TIME,
