@@ -21,7 +21,7 @@ func main() {
 	fmt.Println(":: LOG JSON")
 	log := golog.NewLog(
 		golog.WithLevel(golog.InfoLevel),
-		golog.WithFormatHandler(golog.JsonFormatHandler),
+		golog.WithFormatHandler(gowriter.JsonFormatHandler),
 		golog.WithWriter(stdoutWriter)).
 		With(
 			map[string]interface{}{"level": golog.LEVEL, "time": golog.TIME},
