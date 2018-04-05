@@ -1,6 +1,8 @@
 package gowriter
 
-import "time"
+import (
+	"time"
+)
 
 // StdoutWriterOption ...
 type StdoutWriterOption func(fileWriter *StdoutWriter)
@@ -23,5 +25,12 @@ func WithStdoutFlushTime(flushTime time.Duration) StdoutWriterOption {
 func WithStdoutQuitChannel(quit chan bool) StdoutWriterOption {
 	return func(stdoutWriter *StdoutWriter) {
 		stdoutWriter.quit = quit
+	}
+}
+
+// WithFormatHandler ...
+func WithFormatHandler(formatHandler FormatHandler) StdoutWriterOption {
+	return func(stdoutWriter *StdoutWriter) {
+		stdoutWriter.formatHandler = formatHandler
 	}
 }

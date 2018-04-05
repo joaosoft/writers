@@ -6,6 +6,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/joaosoft/go-log/service"
 	"github.com/joaosoft/go-manager/service"
 	"github.com/satori/go.uuid"
 )
@@ -17,12 +18,13 @@ type stdoutConfig struct {
 
 // StdoutWriter ...
 type StdoutWriter struct {
-	writer     io.Writer
-	config     *stdoutConfig
-	queue      gomanager.IList
-	mux        *sync.Mutex
-	outOnEmpty bool
-	quit       chan bool
+	writer        io.Writer
+	config        *stdoutConfig
+	queue         gomanager.IList
+	mux           *sync.Mutex
+	outOnEmpty    bool
+	formatHandler FormatHandler
+	quit          chan bool
 }
 
 // NewStdoutWriter ...
@@ -35,7 +37,6 @@ func NewStdoutWriter(options ...StdoutWriterOption) *StdoutWriter {
 		quit:   make(chan bool),
 	}
 	stdoutWriter.Reconfigure(options...)
-	stdoutWriter.process()
 	stdoutWriter.process()
 
 	return stdoutWriter
@@ -71,14 +72,12 @@ func (stdoutWriter StdoutWriter) Write(message []byte) (n int, err error) {
 	return 0, nil
 }
 
-// Writef ...
-func (stdoutWriter StdoutWriter) SWrite(message []byte) (n int, err error) {
-	//stdoutWriter.queue.Add(uuid.NewV4().String(), message)
-	return 0, nil
-}
-
-// SWritef ...
-func (stdoutWriter StdoutWriter) SWritef(format string, arguments ...interface{}) (n int, err error) {
-	//stdoutWriter.queue.Add(uuid.NewV4().String(), message)
+// SWrite ...
+func (stdoutWriter StdoutWriter) SWrite(level golog.Level, message golog.Message) (n int, err error) {
+	if bytes, err := stdoutWriter.formatHandler(level, message); err != nil {
+		return
+	} else {
+		stdoutWriter.queue.Add(uuid.NewV4().String(), bytes)
+	}
 	return 0, nil
 }

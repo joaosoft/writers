@@ -8,17 +8,10 @@ import (
 	logger "github.com/joaosoft/go-log/service"
 )
 
-type FormatHandler func(level logger.Level, message *Message) ([]byte, error)
+type FormatHandler func(level logger.Level, message logger.Message) ([]byte, error)
 
-type Message struct {
-	Prefixes map[string]interface{} `json:"prefixes,omitempty"`
-	Tags     map[string]interface{} `json:"tags,omitempty"`
-	Message  interface{}            `json:"message,omitempty"`
-	Fields   map[string]interface{} `json:"fields,omitempty"`
-}
-
-func JsonFormatHandler(level logger.Level, message *Message) ([]byte, error) {
-	addSystemInfo(level, message)
+func JsonFormatHandler(level logger.Level, message logger.Message) ([]byte, error) {
+	addSystemInfo(level, &message)
 	if bytes, err := json.Marshal(message); err != nil {
 		return nil, err
 	} else {
@@ -26,7 +19,7 @@ func JsonFormatHandler(level logger.Level, message *Message) ([]byte, error) {
 	}
 }
 
-func TextFormatHandler(level logger.Level, message *Message) ([]byte, error) {
+func TextFormatHandler(level logger.Level, message logger.Message) ([]byte, error) {
 	type MessageText struct {
 		prefixes interface{}
 		tags     interface{}
@@ -34,11 +27,11 @@ func TextFormatHandler(level logger.Level, message *Message) ([]byte, error) {
 		fields   interface{}
 	}
 
-	addSystemInfo(level, message)
+	addSystemInfo(level, &message)
 	return []byte(fmt.Sprintf("%+v", MessageText{prefixes: message.Prefixes, tags: message.Tags, message: message.Message, fields: message.Fields})), nil
 }
 
-func addSystemInfo(level logger.Level, message *Message) {
+func addSystemInfo(level logger.Level, message *logger.Message) {
 	// special prefixes keys
 	prefixes := make(map[string]interface{}, len(message.Prefixes))
 	for key, value := range message.Prefixes {
