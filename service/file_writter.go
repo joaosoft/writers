@@ -15,29 +15,30 @@ import (
 	uuid "github.com/satori/go.uuid"
 )
 
-// configuration ...
-type configuration struct {
+// fileConfig ...
+type fileConfig struct {
 	directory   string
 	fileName    string
 	fileMaxSize int64
 	flushTime   time.Duration
 }
 
-// FileWriter ...
+// StdoutWriter ...
 type FileWriter struct {
-	writer *bufio.Writer
-	config *configuration
-	queue  gomanager.IList
-	mux    *sync.Mutex
-	quit   chan bool
+	writer     *bufio.Writer
+	config     *fileConfig
+	queue      gomanager.IList
+	mux        *sync.Mutex
+	outOnEmpty bool
+	quit       chan bool
 }
 
-// NewFileWriter ...
+// NewStdoutWriter ...
 func NewFileWriter(options ...FileWriterOption) *FileWriter {
 	fileWriter := &FileWriter{
 		queue:  gomanager.NewQueue(gomanager.WithMode(gomanager.FIFO)),
 		mux:    &sync.Mutex{},
-		config: &configuration{},
+		config: &fileConfig{},
 		quit:   make(chan bool),
 	}
 	fileWriter.Reconfigure(options...)
@@ -61,6 +62,8 @@ func (fileWriter *FileWriter) process() error {
 			case <-fileWriter.quit:
 				if fileWriter.queue.IsEmpty() {
 					return
+				} else {
+					fileWriter.outOnEmpty = true
 				}
 
 			case <-time.After(fileWriter.config.flushTime):
@@ -94,6 +97,10 @@ func (fileWriter *FileWriter) process() error {
 					checkError(err, fmt.Sprintf("error flushing to file %s: %s", tmpLogFileName, err), file)
 				}
 				file.Close()
+
+				if fileWriter.queue.IsEmpty() && fileWriter.outOnEmpty {
+					return
+				}
 			}
 		}
 	}(fileWriter)
@@ -104,13 +111,4 @@ func (fileWriter *FileWriter) process() error {
 func (fileWriter FileWriter) Write(message []byte) (n int, err error) {
 	fileWriter.queue.Add(uuid.NewV4().String(), message)
 	return 0, nil
-}
-
-func checkError(err error, message string, file *os.File) {
-	if err != nil {
-		if file != nil {
-			file.Close()
-		}
-		panic(message)
-	}
 }

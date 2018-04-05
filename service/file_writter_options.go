@@ -2,7 +2,7 @@ package gowriter
 
 import "time"
 
-// FileWriterOption ...
+// StdoutWriterOption ...
 type FileWriterOption func(fileWriter *FileWriter)
 
 // Reconfigure ...
@@ -12,8 +12,8 @@ func (fileWriter *FileWriter) Reconfigure(options ...FileWriterOption) {
 	}
 }
 
-// WithDirectory ...
-func WithDirectory(directory string) FileWriterOption {
+// WithFileDirectory ...
+func WithFileDirectory(directory string) FileWriterOption {
 	return func(fileWriter *FileWriter) {
 		fileWriter.config.directory = directory
 	}
@@ -33,15 +33,15 @@ func WithFileMaxMegaByteSize(fileMaxSize int64) FileWriterOption {
 	}
 }
 
-// WithFlushTime ...
-func WithFlushTime(flushTime time.Duration) FileWriterOption {
+// WithFileFlushTime ...
+func WithFileFlushTime(flushTime time.Duration) FileWriterOption {
 	return func(fileWriter *FileWriter) {
 		fileWriter.config.flushTime = flushTime
 	}
 }
 
-// WithQuitChannel ...
-func WithQuitChannel(quit chan bool) FileWriterOption {
+// WithFileQuitChannel ...
+func WithFileQuitChannel(quit chan bool) FileWriterOption {
 	return func(fileWriter *FileWriter) {
 		fileWriter.quit = quit
 	}

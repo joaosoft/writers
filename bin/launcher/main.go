@@ -10,32 +10,66 @@ import (
 
 func main() {
 	quit := make(chan bool)
+	fmt.Println(":: FILE WRITER")
+
 	//
-	// file writer
-	writer := gowriter.NewFileWriter(
-		gowriter.WithDirectory("./testing"),
+	// file fileWriter
+	fileWriter := gowriter.NewFileWriter(
+		gowriter.WithFileDirectory("./testing"),
 		gowriter.WithFileName("dummy_"),
 		gowriter.WithFileMaxMegaByteSize(1),
-		gowriter.WithFlushTime(time.Second),
-		gowriter.WithQuitChannel(quit),
+		gowriter.WithFileFlushTime(time.Second*5),
+		gowriter.WithFileQuitChannel(quit),
 	)
 
 	// logger
 	log := logger.NewLog(
 		logger.WithLevel(logger.InfoLevel),
 		logger.WithFormatHandler(logger.JsonFormatHandler),
-		logger.WithWriter(writer)).WithPrefixes(map[string]interface{}{
+		logger.WithWriter(fileWriter)).WithPrefixes(map[string]interface{}{
 		"level":   logger.LEVEL,
 		"time":    logger.TIME,
-		"service": "go-writer"})
+		"service": "go-Writer"})
 
-	fmt.Printf("send...")
+	fmt.Println("send...")
 	for i := 1; i < 100000; i++ {
 		log.Info(fmt.Sprintf("hello number %d\n", i))
 	}
-	fmt.Printf("sent!")
+	fmt.Println("sent!")
 
 	// wait one minute to process...
-	<-time.After(time.Minute * 1)
+	<-time.After(time.Second * 10)
+
+	fmt.Println("QUITTING...")
+	quit <- true
+
+	fmt.Println(":: STDOUT WRITER")
+
+	//
+	// stdout fileWriter
+	stdoutWriter := gowriter.NewStdoutWriter(
+		gowriter.WithStdoutFlushTime(time.Second*5),
+		gowriter.WithStdoutQuitChannel(quit),
+	)
+
+	// logger
+	log = logger.NewLog(
+		logger.WithLevel(logger.InfoLevel),
+		logger.WithFormatHandler(logger.JsonFormatHandler),
+		logger.WithWriter(stdoutWriter)).WithPrefixes(map[string]interface{}{
+		"level":   logger.LEVEL,
+		"time":    logger.TIME,
+		"service": "go-Writer"})
+
+	fmt.Println("send...")
+	for i := 1; i < 100000; i++ {
+		log.Info(fmt.Sprintf("hello number %d\n", i))
+	}
+	fmt.Println("sent!")
+
+	// wait one minute to process...
+	<-time.After(time.Second * 10)
+
+	fmt.Println("QUITTING...")
 	quit <- true
 }
