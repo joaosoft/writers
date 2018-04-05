@@ -36,6 +36,7 @@ func NewStdoutWriter(options ...StdoutWriterOption) *StdoutWriter {
 	}
 	stdoutWriter.Reconfigure(options...)
 	stdoutWriter.process()
+	stdoutWriter.process()
 
 	return stdoutWriter
 }
@@ -45,10 +46,9 @@ func (stdoutWriter *StdoutWriter) process() error {
 		for {
 			select {
 			case <-fileWriter.quit:
+				fileWriter.outOnEmpty = true
 				if fileWriter.queue.IsEmpty() {
 					return
-				} else {
-					fileWriter.outOnEmpty = true
 				}
 
 			case <-time.After(fileWriter.config.flushTime):
@@ -68,5 +68,17 @@ func (stdoutWriter *StdoutWriter) process() error {
 // Write ...
 func (stdoutWriter StdoutWriter) Write(message []byte) (n int, err error) {
 	stdoutWriter.queue.Add(uuid.NewV4().String(), message)
+	return 0, nil
+}
+
+// Writef ...
+func (stdoutWriter StdoutWriter) SWrite(message []byte) (n int, err error) {
+	//stdoutWriter.queue.Add(uuid.NewV4().String(), message)
+	return 0, nil
+}
+
+// SWritef ...
+func (stdoutWriter StdoutWriter) SWritef(format string, arguments ...interface{}) (n int, err error) {
+	//stdoutWriter.queue.Add(uuid.NewV4().String(), message)
 	return 0, nil
 }
