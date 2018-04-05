@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"go-writer/service"
 	"time"
-
-	logger "github.com/joaosoft/go-log/service"
 )
 
 func main() {
@@ -22,18 +20,9 @@ func main() {
 		gowriter.WithFileQuitChannel(quit),
 	)
 
-	// logger
-	log := logger.NewLog(
-		logger.WithLevel(logger.InfoLevel),
-		logger.WithFormatHandler(logger.JsonFormatHandler),
-		logger.WithWriter(fileWriter)).WithPrefixes(map[string]interface{}{
-		"level":   logger.LEVEL,
-		"time":    logger.TIME,
-		"service": "go-Writer"})
-
 	fmt.Println("send...")
 	for i := 1; i < 100000; i++ {
-		log.Info(fmt.Sprintf("hello number %d\n", i))
+		fileWriter.Write([]byte(fmt.Sprintf("hello number %d\n", i)))
 	}
 	fmt.Println("sent!")
 
@@ -52,17 +41,9 @@ func main() {
 		gowriter.WithStdoutQuitChannel(quit),
 	)
 
-	// logger
-	log = logger.NewLog(
-		logger.WithLevel(logger.InfoLevel),
-		logger.WithWriter(stdoutWriter)).WithPrefixes(map[string]interface{}{
-		"level":   logger.LEVEL,
-		"time":    logger.TIME,
-		"service": "go-Writer"})
-
 	fmt.Println("send...")
 	for i := 1; i < 100000; i++ {
-		log.Info(fmt.Sprintf("hello number %d\n", i))
+		stdoutWriter.Write([]byte(fmt.Sprintf("hello number %d\n", i)))
 	}
 	fmt.Println("sent!")
 
