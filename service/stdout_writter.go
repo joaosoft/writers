@@ -6,7 +6,6 @@ import (
 	"sync"
 	"time"
 
-	"github.com/joaosoft/go-log/service"
 	"github.com/joaosoft/go-manager/service"
 	"github.com/satori/go.uuid"
 )
@@ -54,7 +53,17 @@ func (stdoutWriter *StdoutWriter) process() error {
 
 			case <-time.After(fileWriter.config.flushTime):
 				for fileWriter.queue.Size() > 0 {
-					stdoutWriter.writer.Write(fileWriter.queue.Remove().([]byte))
+					value := fileWriter.queue.Remove()
+					switch value.(type) {
+					case []byte:
+						stdoutWriter.writer.Write(value.([]byte))
+					case Message:
+						if bytes, err := stdoutWriter.formatHandler(value.(Message)); err != nil {
+							continue
+						} else {
+							stdoutWriter.writer.Write(bytes)
+						}
+					}
 				}
 
 				if fileWriter.queue.IsEmpty() && stdoutWriter.outOnEmpty {
@@ -73,11 +82,7 @@ func (stdoutWriter StdoutWriter) Write(message []byte) (n int, err error) {
 }
 
 // SWrite ...
-func (stdoutWriter StdoutWriter) SWrite(level golog.Level, message golog.Message) (n int, err error) {
-	if bytes, err := stdoutWriter.formatHandler(level, message); err != nil {
-		return
-	} else {
-		stdoutWriter.queue.Add(uuid.NewV4().String(), bytes)
-	}
+func (stdoutWriter StdoutWriter) SWrite(message Message) (n int, err error) {
+	stdoutWriter.queue.Add(uuid.NewV4().String(), message)
 	return 0, nil
 }
