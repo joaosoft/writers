@@ -23,7 +23,7 @@ type fileConfig struct {
 	flushTime   time.Duration
 }
 
-// StdoutWriter ...
+// FileWriter ...
 type FileWriter struct {
 	writer        *bufio.Writer
 	config        *fileConfig
@@ -34,7 +34,7 @@ type FileWriter struct {
 	quit          chan bool
 }
 
-// NewStdoutWriter ...
+// NewFileWriter ...
 func NewFileWriter(options ...FileWriterOption) *FileWriter {
 	fileWriter := &FileWriter{
 		queue:  gomanager.NewQueue(gomanager.WithMode(gomanager.FIFO)),
@@ -87,7 +87,7 @@ func (fileWriter *FileWriter) process() error {
 						logMessage = value.([]byte)
 					case Message:
 						message := value.(Message)
-						if bytes, err := stdoutWriter.formatHandler(message.Prefixes, message.Tags, message.Message, message.Fields); err != nil {
+						if bytes, err := fileWriter.formatHandler(message.Prefixes, message.Tags, message.Message, message.Fields); err != nil {
 							continue
 						} else {
 							logMessage = bytes
