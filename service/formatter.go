@@ -5,17 +5,17 @@ import (
 	"fmt"
 )
 
-type FormatHandler func(message Message) ([]byte, error)
+type FormatHandler func(prefixes map[string]interface{}, tags map[string]interface{}, message interface{}, fields map[string]interface{}) ([]byte, error)
 
-func JsonFormatHandler(message Message) ([]byte, error) {
-	if bytes, err := json.Marshal(message); err != nil {
+func JsonFormatHandler(prefixes map[string]interface{}, tags map[string]interface{}, message interface{}, fields map[string]interface{}) ([]byte, error) {
+	if bytes, err := json.Marshal(Message{Prefixes: prefixes, Tags: tags, Message: fmt.Sprint(message), Fields: fields}); err != nil {
 		return nil, err
 	} else {
 		return bytes, nil
 	}
 }
 
-func TextFormatHandler(message Message) ([]byte, error) {
+func TextFormatHandler(prefixes map[string]interface{}, tags map[string]interface{}, message interface{}, fields map[string]interface{}) ([]byte, error) {
 	type MessageText struct {
 		prefixes interface{}
 		tags     interface{}
@@ -23,5 +23,5 @@ func TextFormatHandler(message Message) ([]byte, error) {
 		fields   interface{}
 	}
 
-	return []byte(fmt.Sprintf("%+v", MessageText{prefixes: message.Prefixes, tags: message.Tags, message: message.Message, fields: message.Fields})), nil
+	return []byte(fmt.Sprintf("%+v", MessageText{prefixes: prefixes, tags: tags, message: fmt.Sprint(message), fields: fields})), nil
 }
