@@ -29,7 +29,7 @@ func main() {
 	// wait one minute to process...
 	<-time.After(time.Second * 10)
 
-	fmt.Println("QUITTING...")
+	fmt.Println("quitting...")
 	quit <- true
 
 	fmt.Println(":: STDOUT WRITER")
@@ -52,6 +52,6 @@ func main() {
 	// wait one minute to process...
 	<-time.After(time.Second * 10)
 
-	fmt.Println("QUITTING...")
+	fmt.Println("quitting...")
 	quit <- true
 }

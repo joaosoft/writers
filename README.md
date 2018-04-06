@@ -8,7 +8,8 @@ A starting project with writer interface implementations.
 ## With support for
 * file (with queue processing)[1] 
 * stdout (with queue processing)[1] [[here]](https://github.com/joaosoft/go-writer/tree/master/test/main.go)
-  
+
+[1] this writer allows you to continue the processing and dispatch the logging  
 
 ## Dependecy Management 
 >### Dep
