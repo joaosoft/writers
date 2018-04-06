@@ -6,7 +6,9 @@ A starting project with writer interface implementations.
 ###### If i miss something or you have something interesting, please be part of this project. Let me know! My contact is at the end.
 
 ## With support for
-* file writer
+* file (with queue processing)[1] 
+* stdout (with queue processing)[1] [[here]](https://github.com/joaosoft/go-writer/tree/master/test/main.go)
+  
 
 ## Dependecy Management 
 >### Dep
