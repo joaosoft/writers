@@ -80,12 +80,12 @@ func (stdoutWriter *StdoutWriter) process() error {
 
 // Write ...
 func (stdoutWriter *StdoutWriter) Write(message []byte) (n int, err error) {
-	stdoutWriter.queue.Add(uuid.NewV4().String(), message)
+	stdoutWriter.queue.Add(uuid.NewV4().String(), fmt.Sprintf("%s\n", message))
 	return 0, nil
 }
 
 // SWrite ...
 func (stdoutWriter *StdoutWriter) SWrite(prefixes map[string]interface{}, tags map[string]interface{}, message interface{}, fields map[string]interface{}) (n int, err error) {
-	stdoutWriter.queue.Add(uuid.NewV4().String(), Message{Prefixes: prefixes, Tags: tags, Message: fmt.Sprint(message), Fields: fields})
+	stdoutWriter.queue.Add(uuid.NewV4().String(), Message{Prefixes: prefixes, Tags: tags, Message: fmt.Sprintf("%s\n", message), Fields: fields})
 	return 0, nil
 }

@@ -121,12 +121,12 @@ func (fileWriter *FileWriter) process() error {
 
 // Write ...
 func (fileWriter *FileWriter) Write(message []byte) (n int, err error) {
-	fileWriter.queue.Add(uuid.NewV4().String(), message)
+	fileWriter.queue.Add(uuid.NewV4().String(), fmt.Sprintf("%s\n", message))
 	return 0, nil
 }
 
 // SWrite ...
 func (fileWriter *FileWriter) SWrite(prefixes map[string]interface{}, tags map[string]interface{}, message interface{}, fields map[string]interface{}) (n int, err error) {
-	fileWriter.queue.Add(uuid.NewV4().String(), Message{Prefixes: prefixes, Tags: tags, Message: fmt.Sprint(message), Fields: fields})
+	fileWriter.queue.Add(uuid.NewV4().String(), Message{Prefixes: prefixes, Tags: tags, Message: fmt.Sprintf("%s\n", message), Fields: fields})
 	return 0, nil
 }
