@@ -3,6 +3,7 @@ package gowriter
 import (
 	"bufio"
 	"bytes"
+	"go-writer/service/common"
 	"os"
 	"sync"
 	"time"
@@ -12,7 +13,6 @@ import (
 	"encoding/binary"
 
 	uuid "github.com/satori/go.uuid"
-	"go-writer/common"
 )
 
 // fileConfig ...
@@ -37,11 +37,11 @@ type FileWriter struct {
 // NewFileWriter ...
 func NewFileWriter(options ...FileWriterOption) *FileWriter {
 	fileWriter := &FileWriter{
-		queue:  common.NewQueue(common.WithMode(common.FIFO)),
+		queue:         common.NewQueue(common.WithMode(common.FIFO)),
 		formatHandler: JsonFormatHandler,
-		mux:    &sync.Mutex{},
-		config: &fileConfig{},
-		quit:   make(chan bool),
+		mux:           &sync.Mutex{},
+		config:        &fileConfig{},
+		quit:          make(chan bool),
 	}
 	fileWriter.Reconfigure(options...)
 	fileWriter.start()

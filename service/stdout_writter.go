@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"go-writer/common"
+	"go-writer/service/common"
 
 	"github.com/satori/go.uuid"
 )
