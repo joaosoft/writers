@@ -22,7 +22,7 @@ func main() {
 
 	fmt.Println("send...")
 	for i := 1; i < 100000; i++ {
-		fileWriter.Write([]byte(fmt.Sprintf("hello number %d\n", i)))
+		fileWriter.Write([]byte(fmt.Sprintf("hello number %d", i)))
 	}
 	fmt.Println("sent!")
 
@@ -39,11 +39,13 @@ func main() {
 	stdoutWriter := gowriter.NewStdoutWriter(
 		gowriter.WithStdoutFlushTime(time.Second*5),
 		gowriter.WithStdoutQuitChannel(quit),
+		gowriter.WithStdoutFormatHandler(gowriter.JsonFormatHandler),
 	)
 
 	fmt.Println("send...")
+	dummy := make(map[string]interface{})
 	for i := 1; i < 100000; i++ {
-		stdoutWriter.Write([]byte(fmt.Sprintf("hello number %d\n", i)))
+		stdoutWriter.SWrite(dummy, dummy, fmt.Sprintf("hello number %d", i), dummy)
 	}
 	fmt.Println("sent!")
 
