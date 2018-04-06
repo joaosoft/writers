@@ -28,8 +28,8 @@ func WithStdoutQuitChannel(quit chan bool) StdoutWriterOption {
 	}
 }
 
-// WithStdoutSpecialFormatHandler ...
-func WithStdoutSpecialFormatHandler(formatHandler FormatHandler) StdoutWriterOption {
+// WithStdoutFormatHandler ...
+func WithStdoutFormatHandler(formatHandler FormatHandler) StdoutWriterOption {
 	return func(stdoutWriter *StdoutWriter) {
 		stdoutWriter.formatHandler = formatHandler
 	}
