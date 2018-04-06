@@ -43,12 +43,12 @@ func NewFileWriter(options ...FileWriterOption) *FileWriter {
 		quit:   make(chan bool),
 	}
 	fileWriter.Reconfigure(options...)
-	fileWriter.process()
+	fileWriter.start()
 
 	return fileWriter
 }
 
-func (fileWriter *FileWriter) process() error {
+func (fileWriter *FileWriter) start() error {
 	if _, err := os.Stat(fileWriter.config.directory); os.IsNotExist(err) {
 		if err = os.Mkdir(fileWriter.config.directory, 0777); err != nil {
 			return err
@@ -121,12 +121,12 @@ func (fileWriter *FileWriter) process() error {
 
 // Write ...
 func (fileWriter *FileWriter) Write(message []byte) (n int, err error) {
-	fileWriter.queue.Add(uuid.NewV4().String(), fmt.Sprintf("%s\n", message))
+	fileWriter.queue.Add(uuid.NewV4().String(), message)
 	return 0, nil
 }
 
 // SWrite ...
 func (fileWriter *FileWriter) SWrite(prefixes map[string]interface{}, tags map[string]interface{}, message interface{}, fields map[string]interface{}) (n int, err error) {
-	fileWriter.queue.Add(uuid.NewV4().String(), Message{Prefixes: prefixes, Tags: tags, Message: fmt.Sprintf("%s\n", message), Fields: fields})
+	fileWriter.queue.Add(uuid.NewV4().String(), Message{Prefixes: prefixes, Tags: tags, Message: message, Fields: fields})
 	return 0, nil
 }

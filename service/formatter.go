@@ -11,7 +11,8 @@ func JsonFormatHandler(prefixes map[string]interface{}, tags map[string]interfac
 	if bytes, err := json.Marshal(Message{Prefixes: prefixes, Tags: tags, Message: fmt.Sprint(message), Fields: fields}); err != nil {
 		return nil, err
 	} else {
-		return bytes, nil
+
+		return append(bytes, []byte("\n")...), nil
 	}
 }
 
@@ -23,5 +24,5 @@ func TextFormatHandler(prefixes map[string]interface{}, tags map[string]interfac
 		fields   interface{}
 	}
 
-	return []byte(fmt.Sprintf("%+v", MessageText{prefixes: prefixes, tags: tags, message: fmt.Sprint(message), fields: fields})), nil
+	return []byte(fmt.Sprintf("%+v\n", MessageText{prefixes: prefixes, tags: tags, message: fmt.Sprint(message), fields: fields})), nil
 }

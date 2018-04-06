@@ -6,8 +6,6 @@ import (
 	"sync"
 	"time"
 
-	"fmt"
-
 	"github.com/joaosoft/go-manager/service"
 	"github.com/satori/go.uuid"
 )
@@ -38,12 +36,12 @@ func NewStdoutWriter(options ...StdoutWriterOption) *StdoutWriter {
 		quit:   make(chan bool),
 	}
 	stdoutWriter.Reconfigure(options...)
-	stdoutWriter.process()
+	stdoutWriter.start()
 
 	return stdoutWriter
 }
 
-func (stdoutWriter *StdoutWriter) process() error {
+func (stdoutWriter *StdoutWriter) start() error {
 	go func(fileWriter *StdoutWriter) {
 		for {
 			select {
@@ -80,12 +78,12 @@ func (stdoutWriter *StdoutWriter) process() error {
 
 // Write ...
 func (stdoutWriter *StdoutWriter) Write(message []byte) (n int, err error) {
-	stdoutWriter.queue.Add(uuid.NewV4().String(), fmt.Sprintf("%s\n", message))
+	stdoutWriter.queue.Add(uuid.NewV4().String(), message)
 	return 0, nil
 }
 
 // SWrite ...
 func (stdoutWriter *StdoutWriter) SWrite(prefixes map[string]interface{}, tags map[string]interface{}, message interface{}, fields map[string]interface{}) (n int, err error) {
-	stdoutWriter.queue.Add(uuid.NewV4().String(), Message{Prefixes: prefixes, Tags: tags, Message: fmt.Sprintf("%s\n", message), Fields: fields})
+	stdoutWriter.queue.Add(uuid.NewV4().String(), Message{Prefixes: prefixes, Tags: tags, Message: message, Fields: fields})
 	return 0, nil
 }
