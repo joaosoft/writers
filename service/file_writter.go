@@ -38,6 +38,7 @@ type FileWriter struct {
 func NewFileWriter(options ...FileWriterOption) *FileWriter {
 	fileWriter := &FileWriter{
 		queue:  common.NewQueue(common.WithMode(common.FIFO)),
+		formatHandler: JsonFormatHandler,
 		mux:    &sync.Mutex{},
 		config: &fileConfig{},
 		quit:   make(chan bool),
