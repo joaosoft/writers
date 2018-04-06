@@ -1,4 +1,4 @@
-package common
+package gowriter
 
 // QueueOption ...
 type QueueOption func(queue *Queue)

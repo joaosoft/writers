@@ -6,8 +6,6 @@ import (
 	"sync"
 	"time"
 
-	"go-writer/service/common"
-
 	"github.com/satori/go.uuid"
 )
 
@@ -20,7 +18,7 @@ type stdoutConfig struct {
 type StdoutWriter struct {
 	writer        io.Writer
 	config        *stdoutConfig
-	queue         common.IList
+	queue         IList
 	formatHandler FormatHandler
 	mux           *sync.Mutex
 	outOnEmpty    bool
@@ -30,7 +28,7 @@ type StdoutWriter struct {
 // NewStdoutWriter ...
 func NewStdoutWriter(options ...StdoutWriterOption) *StdoutWriter {
 	stdoutWriter := &StdoutWriter{
-		queue:         common.NewQueue(common.WithMode(common.FIFO)),
+		queue:         NewQueue(WithMode(FIFO)),
 		formatHandler: JsonFormatHandler,
 		writer:        os.Stdout,
 		mux:           &sync.Mutex{},

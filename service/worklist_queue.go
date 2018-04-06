@@ -1,4 +1,4 @@
-package common
+package gowriter
 
 import (
 	"encoding/json"
