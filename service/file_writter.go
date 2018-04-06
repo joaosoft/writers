@@ -86,7 +86,8 @@ func (fileWriter *FileWriter) process() error {
 					case []byte:
 						logMessage = value.([]byte)
 					case Message:
-						if bytes, err := fileWriter.formatHandler(value.(Message)); err != nil {
+						message := value.(Message)
+						if bytes, err := stdoutWriter.formatHandler(message.Prefixes, message.Tags, message.Message, message.Fields); err != nil {
 							continue
 						} else {
 							logMessage = bytes
@@ -125,7 +126,7 @@ func (fileWriter *FileWriter) Write(message []byte) (n int, err error) {
 }
 
 // SWrite ...
-func (fileWriter *FileWriter) SWrite(message Message) (n int, err error) {
-	fileWriter.queue.Add(uuid.NewV4().String(), message)
+func (fileWriter *FileWriter) SWrite(prefixes map[string]interface{}, tags map[string]interface{}, message interface{}, fields map[string]interface{}) (n int, err error) {
+	fileWriter.queue.Add(uuid.NewV4().String(), Message{Prefixes: prefixes, Tags: tags, Message: fmt.Sprint(message), Fields: fields})
 	return 0, nil
 }
