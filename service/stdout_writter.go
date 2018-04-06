@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/joaosoft/go-manager/service"
 	"github.com/satori/go.uuid"
+	"go-writer/common"
 )
 
 // fileConfig ...
@@ -19,7 +19,7 @@ type stdoutConfig struct {
 type StdoutWriter struct {
 	writer        io.Writer
 	config        *stdoutConfig
-	queue         gomanager.IList
+	queue         common.IList
 	formatHandler FormatHandler
 	mux           *sync.Mutex
 	outOnEmpty    bool
@@ -29,7 +29,7 @@ type StdoutWriter struct {
 // NewStdoutWriter ...
 func NewStdoutWriter(options ...StdoutWriterOption) *StdoutWriter {
 	stdoutWriter := &StdoutWriter{
-		queue:  gomanager.NewQueue(gomanager.WithMode(gomanager.FIFO)),
+		queue:  common.NewQueue(common.WithMode(common.FIFO)),
 		writer: os.Stdout,
 		mux:    &sync.Mutex{},
 		config: &stdoutConfig{},

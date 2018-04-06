@@ -11,8 +11,8 @@ import (
 
 	"encoding/binary"
 
-	"github.com/joaosoft/go-manager/service"
 	uuid "github.com/satori/go.uuid"
+	"go-writer/common"
 )
 
 // fileConfig ...
@@ -27,7 +27,7 @@ type fileConfig struct {
 type FileWriter struct {
 	writer        *bufio.Writer
 	config        *fileConfig
-	queue         gomanager.IList
+	queue         common.IList
 	formatHandler FormatHandler
 	mux           *sync.Mutex
 	outOnEmpty    bool
@@ -37,7 +37,7 @@ type FileWriter struct {
 // NewFileWriter ...
 func NewFileWriter(options ...FileWriterOption) *FileWriter {
 	fileWriter := &FileWriter{
-		queue:  gomanager.NewQueue(gomanager.WithMode(gomanager.FIFO)),
+		queue:  common.NewQueue(common.WithMode(common.FIFO)),
 		mux:    &sync.Mutex{},
 		config: &fileConfig{},
 		quit:   make(chan bool),

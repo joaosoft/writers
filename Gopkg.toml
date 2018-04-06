@@ -22,8 +22,8 @@
 
 
 [[constraint]]
-  branch = "master"
-  name = "github.com/joaosoft/go-manager"
+  name = "github.com/labstack/gommon"
+  version = "0.2.4"
 
 [[constraint]]
   name = "github.com/satori/go.uuid"
