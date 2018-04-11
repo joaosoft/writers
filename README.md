@@ -1,5 +1,5 @@
 # go-writer
-[![Build Status](https://travis-ci.org/joaosoft/go-writer.svg?branch=master)](https://travis-ci.org/joaosoft/go-writer) | [![codecov](https://codecov.io/gh/joaosoft/go-writer/branch/master/graph/badge.svg)](https://codecov.io/gh/joaosoft/go-writer)
+[![Build Status](https://travis-ci.org/joaosoft/go-writer.svg?branch=master)](https://travis-ci.org/joaosoft/go-writer) | [![codecov](https://codecov.io/gh/joaosoft/go-writer/branch/master/graph/badge.svg)](https://codecov.io/gh/joaosoft/go-writer) | [![Go Report Card](https://goreportcard.com/badge/github.com/joaosoft/go-writer)](https://goreportcard.com/report/github.com/joaosoft/go-writer) | [![GoDoc](https://godoc.org/github.com/joaosoft/go-writer?status.svg)](https://godoc.org/github.com/joaosoft/go-writer/service)
 
 A starting project with writer interface implementations.
 
