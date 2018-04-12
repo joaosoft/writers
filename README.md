@@ -7,7 +7,7 @@ A starting project with writer interface implementations.
 
 ## With support for
 * file (with queue processing)[1] 
-* stdout (with queue processing)[1] [[here]](https://github.com/joaosoft/go-writer/tree/master/test/main.go)
+* stdout (with queue processing)[1] [[here]](https://github.com/joaosoft/go-writer/tree/master/example)
 
 [1] this writer allows you to continue the processing and dispatch the logging  
 
@@ -32,7 +32,7 @@ type Writer interface {
 ```
 
 ## Usage 
-This examples are available in the project at [go-writer/bin/launcher/main.go](https://github.com/joaosoft/go-writer/tree/master/bin/launcher/main.go)
+This examples are available in the project at [go-writer/example](https://github.com/joaosoft/go-writer/tree/master/example)
 
 ```go
 quit := make(chan bool)
