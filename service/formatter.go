@@ -8,7 +8,7 @@ import (
 type FormatHandler func(prefixes map[string]interface{}, tags map[string]interface{}, message interface{}, fields map[string]interface{}) ([]byte, error)
 
 func JsonFormatHandler(prefixes map[string]interface{}, tags map[string]interface{}, message interface{}, fields map[string]interface{}) ([]byte, error) {
-	if bytes, err := json.Marshal(Message{Prefixes: prefixes, Tags: tags, Message: fmt.Sprint(message), Fields: fields}); err != nil {
+	if bytes, err := json.Marshal(Message{Prefixes: prefixes, Tags: tags, Message: message, Fields: fields}); err != nil {
 		return nil, err
 	} else {
 
@@ -24,5 +24,5 @@ func TextFormatHandler(prefixes map[string]interface{}, tags map[string]interfac
 		fields   interface{}
 	}
 
-	return []byte(fmt.Sprintf("%+v\n", MessageText{prefixes: prefixes, tags: tags, message: fmt.Sprint(message), fields: fields})), nil
+	return []byte(fmt.Sprintf("%+v\n", MessageText{prefixes: prefixes, tags: tags, message: message, fields: fields})), nil
 }
