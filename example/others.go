@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"go-writer/service"
+	"go-writer/app"
 	"time"
 )
 

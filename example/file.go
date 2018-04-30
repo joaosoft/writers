@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"go-writer/service"
+	"go-writer/app"
 	"time"
 )
 
