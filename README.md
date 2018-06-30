@@ -1,5 +1,5 @@
 # writer
-[![Build Status](https://travis-ci.org/joaosoft/writer.svg?branch=master)](https://travis-ci.org/joaosoft/writer) | [![codecov](https://codecov.io/gh/joaosoft/writer/branch/master/graph/badge.svg)](https://codecov.io/gh/joaosoft/writer) | [![Go Report Card](https://goreportcard.com/badge/github.com/joaosoft/writer)](https://goreportcard.com/report/github.com/joaosoft/writer) | [![GoDoc](https://godoc.org/github.com/joaosoft/writer?status.svg)](https://godoc.org/github.com/joaosoft/writer/service)
+[![Build Status](https://travis-ci.org/joaosoft/writer.svg?branch=master)](https://travis-ci.org/joaosoft/writer) | [![codecov](https://codecov.io/gh/joaosoft/writer/branch/master/graph/badge.svg)](https://codecov.io/gh/joaosoft/writer) | [![Go Report Card](https://goreportcard.com/badge/github.com/joaosoft/writer)](https://goreportcard.com/report/github.com/joaosoft/writer) | [![GoDoc](https://godoc.org/github.com/joaosoft/writer?status.svg)](https://godoc.org/github.com/joaosoft/writer)
 
 A starting project with writer interface implementations.
 
@@ -21,7 +21,7 @@ Project dependencies are managed using Dep. Read more about [Dep](https://github
 
 >### Go
 ```
-go get github.com/joaosoft/writer/service
+go get github.com/joaosoft/writer
 ```
 
 ## Interface 
@@ -38,19 +38,19 @@ This examples are available in the project at [writer/example](https://github.co
 quit := make(chan bool)
 //
 // file writer
-writer := gowriter.NewFileWriter(
-    gowriter.WithDirectory("./testing"),
-    gowriter.WithFileName("dummy_"),
-    gowriter.WithFileMaxMegaByteSize(1),
-    gowriter.WithFlushTime(time.Second),
-    gowriter.WithQuitChannel(quit),
+w := writer.NewFileWriter(
+    writer.WithDirectory("./testing"),
+    writer.WithFileName("dummy_"),
+    writer.WithFileMaxMegaByteSize(1),
+    writer.WithFlushTime(time.Second),
+    writer.WithQuitChannel(quit),
 )
 
 // logger
 log := logger.NewLog(
     logger.WithLevel(logger.InfoLevel),
     logger.WithFormatHandler(logger.JsonFormatHandler),
-    logger.WithWriter(writer)).WithPrefixes(map[string]interface{}{
+    logger.WithWriter(w)).WithPrefixes(map[string]interface{}{
     "level":   logger.LEVEL,
     "time":    logger.TIME,
     "service": "writer"})
