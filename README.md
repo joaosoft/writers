@@ -1,5 +1,5 @@
-# writer
-[![Build Status](https://travis-ci.org/joaosoft/writer.svg?branch=master)](https://travis-ci.org/joaosoft/writer) | [![codecov](https://codecov.io/gh/joaosoft/writer/branch/master/graph/badge.svg)](https://codecov.io/gh/joaosoft/writer) | [![Go Report Card](https://goreportcard.com/badge/github.com/joaosoft/writer)](https://goreportcard.com/report/github.com/joaosoft/writer) | [![GoDoc](https://godoc.org/github.com/joaosoft/writer?status.svg)](https://godoc.org/github.com/joaosoft/writer)
+# writerss
+[![Build Status](https://travis-ci.org/joaosoft/writerss.svg?branch=master)](https://travis-ci.org/joaosoft/writerss) | [![codecov](https://codecov.io/gh/joaosoft/writerss/branch/master/graph/badge.svg)](https://codecov.io/gh/joaosoft/writerss) | [![Go Report Card](https://goreportcard.com/badge/github.com/joaosoft/writers)](https://goreportcard.com/report/github.com/joaosoft/writers) | [![GoDoc](https://godoc.org/github.com/joaosoft/writers?status.svg)](https://godoc.org/github.com/joaosoft/writers)
 
 A starting project with writer interface implementations.
 
@@ -7,9 +7,9 @@ A starting project with writer interface implementations.
 
 ## With support for
 * file (with queue processing)[1] 
-* stdout (with queue processing)[1] [[here]](https://github.com/joaosoft/writer/tree/master/example)
+* stdout (with queue processing)[1] [[here]](https://github.com/joaosoft/writerss/tree/master/examples)
 
-[1] this writer allows you to continue the processing and dispatch the logging  
+[1] this writer allows you to continue the processing and dispatch the logging
 
 ## Dependecy Management 
 >### Dep
@@ -21,39 +21,39 @@ Project dependencies are managed using Dep. Read more about [Dep](https://github
 
 >### Go
 ```
-go get github.com/joaosoft/writer
+go get github.com/joaosoft/writers
 ```
 
 ## Interface 
 ```go
-type Writer interface {
+type writer interface {
 	Write(p []byte) (n int, err error)
 }
 ```
 
 ## Usage 
-This examples are available in the project at [writer/example](https://github.com/joaosoft/writer/tree/master/example)
+This examples are available in the project at [writers/examples](https://github.com/joaosoft/writers/tree/master/examples)
 
 ```go
 quit := make(chan bool)
 //
-// file writer
-w := writer.NewFileWriter(
-    writer.WithDirectory("./testing"),
-    writer.WithFileName("dummy_"),
-    writer.WithFileMaxMegaByteSize(1),
-    writer.WithFlushTime(time.Second),
-    writer.WithQuitChannel(quit),
+// file writers
+writer := writers.NewFileWriter(
+    writers.WithDirectory("./testing"),
+    writers.WithFileName("dummy_"),
+    writers.WithFileMaxMegaByteSize(1),
+    writers.WithFlushTime(time.Second),
+    writers.WithQuitChannel(quit),
 )
 
 // logger
 log := logger.NewLog(
     logger.WithLevel(logger.InfoLevel),
     logger.WithFormatHandler(logger.JsonFormatHandler),
-    logger.WithWriter(w)).WithPrefixes(map[string]interface{}{
+    logger.WithWriter(writer)).WithPrefixes(map[string]interface{}{
     "level":   logger.LEVEL,
     "time":    logger.TIME,
-    "service": "writer"})
+    "service": "writers"})
 
 fmt.Printf("send...")
 for i := 1; i < 100000; i++ {

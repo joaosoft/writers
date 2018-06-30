@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"time"
-	"writer"
+	"writers"
 )
 
 func ExampleFileWriter() {
@@ -12,12 +12,12 @@ func ExampleFileWriter() {
 
 	//
 	// file
-	fileWriter := writer.NewFileWriter(
-		writer.WithFileDirectory("./testing"),
-		writer.WithFileName("dummy_"),
-		writer.WithFileMaxMegaByteSize(1),
-		writer.WithFileFlushTime(time.Second*5),
-		writer.WithFileQuitChannel(quit),
+	fileWriter := writers.NewFileWriter(
+		writers.WithFileDirectory("./testing"),
+		writers.WithFileName("dummy_"),
+		writers.WithFileMaxMegaByteSize(1),
+		writers.WithFileFlushTime(time.Second*5),
+		writers.WithFileQuitChannel(quit),
 	)
 
 	fmt.Println("send...")

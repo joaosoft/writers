@@ -5,4 +5,4 @@ like https://github.com/joaosoft/go-log
 examples at https://github.com/joaosoft/writer/tree/master/example
 
 */
-package writer
+package writers

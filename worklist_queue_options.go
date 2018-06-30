@@ -1,4 +1,4 @@
-package writer
+package writers
 
 // QueueOption ...
 type QueueOption func(queue *Queue)

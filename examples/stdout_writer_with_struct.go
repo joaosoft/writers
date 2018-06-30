@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"time"
-	"writer"
+	"writers"
 )
 
 func ExampleStdoutWriterWithStruct() {
@@ -13,10 +13,10 @@ func ExampleStdoutWriterWithStruct() {
 
 	//
 	// json
-	stdoutWriter := writer.NewStdoutWriter(
-		writer.WithStdoutFlushTime(time.Second*5),
-		writer.WithStdoutQuitChannel(quit),
-		writer.WithStdoutFormatHandler(writer.JsonFormatHandler),
+	stdoutWriter := writers.NewStdoutWriter(
+		writers.WithStdoutFlushTime(time.Second*5),
+		writers.WithStdoutQuitChannel(quit),
+		writers.WithStdoutFormatHandler(writers.JsonFormatHandler),
 	)
 
 	fmt.Println("send...")
