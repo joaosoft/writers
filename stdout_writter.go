@@ -1,4 +1,4 @@
-package gowriter
+package writer
 
 import (
 	"io"
@@ -9,7 +9,7 @@ import (
 	"github.com/satori/go.uuid"
 )
 
-// fileConfig ...
+// FileConfig ...
 type stdoutConfig struct {
 	flushTime time.Duration
 }

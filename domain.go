@@ -1,4 +1,4 @@
-package gowriter
+package writer
 
 type Message struct {
 	Prefixes map[string]interface{} `json:"prefixes,omitempty"`

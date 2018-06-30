@@ -1,5 +1,5 @@
-# go-writer
-[![Build Status](https://travis-ci.org/joaosoft/go-writer.svg?branch=master)](https://travis-ci.org/joaosoft/go-writer) | [![codecov](https://codecov.io/gh/joaosoft/go-writer/branch/master/graph/badge.svg)](https://codecov.io/gh/joaosoft/go-writer) | [![Go Report Card](https://goreportcard.com/badge/github.com/joaosoft/go-writer)](https://goreportcard.com/report/github.com/joaosoft/go-writer) | [![GoDoc](https://godoc.org/github.com/joaosoft/go-writer?status.svg)](https://godoc.org/github.com/joaosoft/go-writer/service)
+# writer
+[![Build Status](https://travis-ci.org/joaosoft/writer.svg?branch=master)](https://travis-ci.org/joaosoft/writer) | [![codecov](https://codecov.io/gh/joaosoft/writer/branch/master/graph/badge.svg)](https://codecov.io/gh/joaosoft/writer) | [![Go Report Card](https://goreportcard.com/badge/github.com/joaosoft/writer)](https://goreportcard.com/report/github.com/joaosoft/writer) | [![GoDoc](https://godoc.org/github.com/joaosoft/writer?status.svg)](https://godoc.org/github.com/joaosoft/writer/service)
 
 A starting project with writer interface implementations.
 
@@ -7,7 +7,7 @@ A starting project with writer interface implementations.
 
 ## With support for
 * file (with queue processing)[1] 
-* stdout (with queue processing)[1] [[here]](https://github.com/joaosoft/go-writer/tree/master/example)
+* stdout (with queue processing)[1] [[here]](https://github.com/joaosoft/writer/tree/master/example)
 
 [1] this writer allows you to continue the processing and dispatch the logging  
 
@@ -21,7 +21,7 @@ Project dependencies are managed using Dep. Read more about [Dep](https://github
 
 >### Go
 ```
-go get github.com/joaosoft/go-writer/service
+go get github.com/joaosoft/writer/service
 ```
 
 ## Interface 
@@ -32,7 +32,7 @@ type Writer interface {
 ```
 
 ## Usage 
-This examples are available in the project at [go-writer/example](https://github.com/joaosoft/go-writer/tree/master/example)
+This examples are available in the project at [writer/example](https://github.com/joaosoft/writer/tree/master/example)
 
 ```go
 quit := make(chan bool)
@@ -53,7 +53,7 @@ log := logger.NewLog(
     logger.WithWriter(writer)).WithPrefixes(map[string]interface{}{
     "level":   logger.LEVEL,
     "time":    logger.TIME,
-    "service": "go-writer"})
+    "service": "writer"})
 
 fmt.Printf("send...")
 for i := 1; i < 100000; i++ {

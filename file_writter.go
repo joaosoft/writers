@@ -1,4 +1,4 @@
-package gowriter
+package writer
 
 import (
 	"bufio"
@@ -14,8 +14,8 @@ import (
 	uuid "github.com/satori/go.uuid"
 )
 
-// fileConfig ...
-type fileConfig struct {
+// FileConfig ...
+type FileConfig struct {
 	directory   string
 	fileName    string
 	fileMaxSize int64
@@ -25,7 +25,7 @@ type fileConfig struct {
 // FileWriter ...
 type FileWriter struct {
 	writer        *bufio.Writer
-	config        *fileConfig
+	config        *FileConfig
 	queue         IList
 	formatHandler FormatHandler
 	mux           *sync.Mutex
@@ -39,7 +39,7 @@ func NewFileWriter(options ...FileWriterOption) *FileWriter {
 		queue:         NewQueue(WithMode(FIFO)),
 		formatHandler: JsonFormatHandler,
 		mux:           &sync.Mutex{},
-		config:        &fileConfig{},
+		config:        &FileConfig{},
 		quit:          make(chan bool),
 	}
 	fileWriter.Reconfigure(options...)

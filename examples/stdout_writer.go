@@ -2,20 +2,20 @@ package main
 
 import (
 	"fmt"
-	"go-writer/app"
+	"writer"
 	"time"
 )
 
-func RunWriteAsJsonToStdout() {
+func ExampleStdoutWriter() {
 	quit := make(chan bool)
 	fmt.Println(":: STDOUT WRITER")
 
 	//
 	// json
-	stdoutWriter := gowriter.NewStdoutWriter(
-		gowriter.WithStdoutFlushTime(time.Second*5),
-		gowriter.WithStdoutQuitChannel(quit),
-		gowriter.WithStdoutFormatHandler(gowriter.JsonFormatHandler),
+	stdoutWriter := writer.NewStdoutWriter(
+		writer.WithStdoutFlushTime(time.Second*5),
+		writer.WithStdoutQuitChannel(quit),
+		writer.WithStdoutFormatHandler(writer.JsonFormatHandler),
 	)
 
 	fmt.Println("send...")

@@ -1,4 +1,4 @@
-package gowriter
+package writer
 
 import "os"
 
