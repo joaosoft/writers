@@ -3,9 +3,12 @@
 
 [[projects]]
   name = "github.com/labstack/gommon"
-  packages = ["color","log"]
-  revision = "6fe1405d73ec4bd4cd8a4ac8e2a2b2bf95d03954"
-  version = "0.2.4"
+  packages = [
+    "color",
+    "log"
+  ]
+  revision = "d6898124de917583f5ff5592ef931d1dfe0ddc05"
+  version = "0.2.6"
 
 [[projects]]
   name = "github.com/mattn/go-colorable"
@@ -41,11 +44,11 @@
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
-  revision = "1d206c9fa8975fb4cf00df1dc8bf3283dc24ba0e"
+  revision = "7138fd3d9dc8335c567ca206f4333fb75eb05d56"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "b018eb671e82bb7fd72eb994d05e01731746ac7656fc84218de8f6e5b3ca93aa"
+  inputs-digest = "0137bc08271ee90c3e6bd34cec74d2bababc7956700679d5c443feefc3cd000f"
   solver-name = "gps-cdcl"
   solver-version = 1
