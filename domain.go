@@ -5,6 +5,7 @@ type Message struct {
 	Tags     map[string]interface{} `json:"tags,omitempty"`
 	Message  interface{}            `json:"message,omitempty"`
 	Fields   map[string]interface{} `json:"fields,omitempty"`
+	Sufixes   map[string]interface{} `json:"sufixes,omitempty"`
 }
 
 // IList ...

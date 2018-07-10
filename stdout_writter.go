@@ -59,7 +59,7 @@ func (stdoutWriter *StdoutWriter) start() error {
 						stdoutWriter.writer.Write(value.([]byte))
 					case Message:
 						message := value.(Message)
-						if bytes, err := stdoutWriter.formatHandler(message.Prefixes, message.Tags, message.Message, message.Fields); err != nil {
+						if bytes, err := stdoutWriter.formatHandler(message.Prefixes, message.Tags, message.Message, message.Fields, message.Sufixes); err != nil {
 							continue
 						} else {
 							stdoutWriter.writer.Write(bytes)
@@ -83,7 +83,7 @@ func (stdoutWriter *StdoutWriter) Write(message []byte) (n int, err error) {
 }
 
 // SWrite ...
-func (stdoutWriter *StdoutWriter) SWrite(prefixes map[string]interface{}, tags map[string]interface{}, message interface{}, fields map[string]interface{}) (n int, err error) {
-	stdoutWriter.queue.Add(uuid.NewV4().String(), Message{Prefixes: prefixes, Tags: tags, Message: message, Fields: fields})
+func (stdoutWriter *StdoutWriter) SWrite(prefixes map[string]interface{}, tags map[string]interface{}, message interface{}, fields map[string]interface{}, sufixes map[string]interface{}) (n int, err error) {
+	stdoutWriter.queue.Add(uuid.NewV4().String(), Message{Prefixes: prefixes, Tags: tags, Message: message, Fields: fields, Sufixes: sufixes})
 	return 0, nil
 }

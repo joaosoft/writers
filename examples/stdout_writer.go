@@ -21,7 +21,7 @@ func ExampleStdoutWriter() {
 	fmt.Println("send...")
 	dummy := make(map[string]interface{})
 	for i := 1; i < 100000; i++ {
-		stdoutWriter.SWrite(dummy, dummy, fmt.Sprintf("hello number %d", i), dummy)
+		stdoutWriter.SWrite(dummy, dummy, fmt.Sprintf("hello number %d", i), dummy, dummy)
 	}
 	fmt.Println("sent!")
 
