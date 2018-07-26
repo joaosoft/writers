@@ -26,7 +26,7 @@
   branch = "master"
   name = "github.com/satori/go.uuid"
   packages = ["."]
-  revision = "f58768cc1a7a7e77a3bd49e98cdd21419399b6a3"
+  revision = "36e9d2ebbde5e3f13ab2e25625fd453271d6522e"
 
 [[projects]]
   branch = "master"
@@ -49,6 +49,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "0137bc08271ee90c3e6bd34cec74d2bababc7956700679d5c443feefc3cd000f"
+  inputs-digest = "77d2b5ad9f55a8ffbce1d36c941371a01aff28b2aec013ce9e0bd0890ca6c77d"
   solver-name = "gps-cdcl"
   solver-version = 1
