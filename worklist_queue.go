@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/labstack/gommon/log"
+	"log"
 )
 
 // Mode ...
@@ -154,7 +154,7 @@ func (queue *Queue) Dump() string {
 	}
 
 	if json, err := json.Marshal(print); err != nil {
-		log.Error(err)
+		log.Print(err)
 		return ""
 	} else {
 		return string(json)
