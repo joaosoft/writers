@@ -121,7 +121,7 @@ func (fileWriter *FileWriter) start() error {
 
 // Write ...
 func (fileWriter *FileWriter) Write(message []byte) (n int, err error) {
-	id, _ := uuid.NewV4()
+	id := uuid.NewV4()
 	fileWriter.queue.Add(id.String(), message)
 	return 0, nil
 }
