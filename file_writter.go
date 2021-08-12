@@ -121,14 +121,20 @@ func (fileWriter *FileWriter) start() error {
 
 // Write ...
 func (fileWriter *FileWriter) Write(message []byte) (n int, err error) {
-	id := uuid.NewV4()
+	id, err := uuid.NewV4()
+	if err != nil {
+		return 0, err
+	}
 	fileWriter.queue.Add(id.String(), message)
 	return 0, nil
 }
 
 // SWrite ...
 func (fileWriter *FileWriter) SWrite(prefixes map[string]interface{}, tags map[string]interface{}, message interface{}, fields map[string]interface{}, sufixes map[string]interface{}) (n int, err error) {
-	id, _ := uuid.NewV4()
+	id, err := uuid.NewV4()
+	if err != nil {
+		return 0, err
+	}
 	fileWriter.queue.Add(id.String(), Message{Prefixes: prefixes, Tags: tags, Message: message, Fields: fields, Sufixes: sufixes})
 	return 0, nil
 }
