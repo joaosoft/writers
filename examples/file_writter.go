@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"time"
-	"writers"
+	"github.com/joaosoft/writers"
 )
 
 func ExampleFileWriter() {

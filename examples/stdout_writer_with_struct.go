@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"time"
-	"writers"
+	"github.com/joaosoft/writers"
 )
 
 func ExampleStdoutWriterWithStruct() {
