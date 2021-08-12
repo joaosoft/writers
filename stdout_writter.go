@@ -78,20 +78,14 @@ func (stdoutWriter *StdoutWriter) start() error {
 
 // Write ...
 func (stdoutWriter *StdoutWriter) Write(message []byte) (n int, err error) {
-	id, err := uuid.NewV4()
-	if err != nil {
-		return 0, err
-	}
+	id := uuid.NewV4()
 	stdoutWriter.queue.Add(id.String(), message)
 	return 0, nil
 }
 
 // SWrite ...
 func (stdoutWriter *StdoutWriter) SWrite(prefixes map[string]interface{}, tags map[string]interface{}, message interface{}, fields map[string]interface{}, sufixes map[string]interface{}) (n int, err error) {
-	id, err := uuid.NewV4()
-	if err != nil {
-		return 0, err
-	}
+	id := uuid.NewV4()
 	stdoutWriter.queue.Add(id.String(), Message{Prefixes: prefixes, Tags: tags, Message: message, Fields: fields, Sufixes: sufixes})
 	return 0, nil
 }
