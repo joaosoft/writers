@@ -1,4 +1,4 @@
-module github.com/joaosoft/writer
+module github.com/joaosoft/writers
 
 go 1.20
 
