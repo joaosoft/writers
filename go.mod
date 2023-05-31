@@ -1,7 +1,10 @@
-module github.com/joaosoft/writers
+module github.com/joaosoft/writer
 
-go 1.18
+go 1.20
 
-require github.com/satori/go.uuid v1.2.0
+require (
+	github.com/joaosoft/writers v0.0.0-20230531140813-020bbb6244e6
+	github.com/satori/go.uuid v1.2.0
+)
 
-require gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
+require github.com/kr/pretty v0.3.1 // indirect
